@@ -28,30 +28,6 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 EXPOSE 80
 
-##
-# Now all our stuff.
-##
-
-# Preinstall some things that don't change.
-RUN apt-get update -q \
-  && apt-get install -y apt-utils \
-  && apt-get -y install \
-    git \
-    unzip \
-    nano \
-  && apt-get clean
-
-# Install composer related packages.
-ENV PATH $PATH:$HOME/.composer/vendor/bin
-RUN cd $HOME \
-    && curl -sS https://getcomposer.org/installer | php \
-    && mv composer.phar /usr/local/bin/composer
-
-# Install drush.
-ENV DRUSH_VERSION 7.0.0
-RUN composer global require drush/drush:$DRUSH_VERSION --prefer-source \
-    && drush cc drush
-
 # Prepare apache
 RUN a2enmod rewrite alias
 
