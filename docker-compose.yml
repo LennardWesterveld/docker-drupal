@@ -24,13 +24,15 @@ db:
   volumes_from:
     - data
 web:
-  build: ./php
+  build: ./web
   expose:
     - 80
   ports:
     - 80:80
   links:
     - db:mysql
+  volumes:
+    - ./php/config/000-default.conf:/etc/apache2/sites-available/000-default.conf
   volumes_from:
     - drupal-kraftwagen-build
     - data
