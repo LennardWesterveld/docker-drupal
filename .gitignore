@@ -1,3 +1,5 @@
 .idea
 src/
 tmp/
+
+.DS_Store

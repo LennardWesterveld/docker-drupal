@@ -9,10 +9,10 @@ drupal-kraftwagen-build:
   build: ./drupal-kraftwagen
   volumes:
     - ./drupal-kraftwagen/src:/home/drupal/src
-    - ./drupal-kraftwagen/cnf/settings.local.php:/home/drupal/cnf/settings.local.php
-    - ./drupal-kraftwagen/cnf/enviroment:/home/drupal/cnf/enviroment
-    - ./drupal-kraftwagen/cnf/files:/home/drupal/cnf/files
-    - /var/www/html
+    - ./drupal-kraftwagen/cnf/settings.local.php:/var/www/drupal/cnf/settings.local.php
+    - ./drupal-kraftwagen/cnf/enviroment:/var/www/drupal/cnf/enviroment
+    - ./drupal-kraftwagen/cnf/files:/var/www//drupal/cnf/files
+    - /var/www
 data:
   image: ubuntu:14.04
   volumes:

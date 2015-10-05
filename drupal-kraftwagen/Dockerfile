@@ -37,20 +37,26 @@ RUN mkdir ~/.drush/
 RUN git clone "git://github.com/kraftwagen/kraftwagen.git" ~/.drush/kraftwagen
 RUN drush cc drush
 
-RUN ls -la /home/
-
-RUN mkdir /home/drupal
-
-COPY ./src /home/drupal/src
-
-RUN ls -la /home/drupal
-
-RUN bash /home/drupal/src/build.sh
-
 RUN mkdir /var/www
+RUN mkdir /var/www/drupal
 
-RUN ln -sF /home/drupal/build /var/www/html
+COPY ./src /var/www/drupal/src
+
+RUN ls -la /var/www/drupal/src/cnf
+
+RUN cd /var/www/drupal && bash /var/www/drupal/src/build.sh
+
+RUN ln -s /var/www/drupal/build /var/www/html
 
 RUN ls -la /var/www/html/*
+
+# Fix permissions
+RUN groupadd -f -r www-data
+RUN id -u www-data || useradd -r -g www-data www-data
+
+RUN usermod -u 1000 www-data
+RUN usermod -G staff www-data
+
+RUN bash /var/www/drupal/src/cnf/fix-permissions.sh --drupal_path=/var/www/drupal/build --drupal_user=www-data --httpd_group=www-data
 
 VOLUME /var/www/html
