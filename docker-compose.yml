@@ -32,7 +32,7 @@ web:
   links:
     - db:mysql
   volumes:
-    - ./php/config/000-default.conf:/etc/apache2/sites-available/000-default.conf
+    - ./web/config/000-default.conf:/etc/apache2/sites-available/000-default.conf
   volumes_from:
     - drupal-kraftwagen-build
     - data
